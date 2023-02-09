@@ -7,19 +7,63 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <table border="1" id="Teams">
-      <thead>
-        <tr>
-          <th>Group</th>
-          <th>Members</th>
-          <th>Project Name</th>
-          <th>Project URL</th>
-        </tr>
-      </thead>
-      <tbody></tbody>
+    <form action="secretariat" method="get">
+      <table border="1" id="Teams">
+        <thead>
+          <tr>
+            <th>Group</th>
+            <th>Members</th>
+            <th>Project Name</th>
+            <th>Project URL</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
 
-      <tfoot></tfoot>
-    </table>
+        <tfoot>
+          <tr>
+            <td>
+              <input
+                type="text"
+                placeholder="Enter Group"
+                name="promotion"
+                id="promotion"
+                required
+              />
+            </td>
+            <td>
+              <input
+                type="text"
+                placeholder="Enter Members"
+                name="members"
+                id="members"
+                required
+              />
+            </td>
+            <td>
+              <input
+                type="text"
+                placeholder="Enter Name"
+                name="name"
+                id="name"
+                required
+              />
+            </td>
+            <td>
+              <input
+                type="text"
+                placeholder="Enter Url"
+                name="url"
+                id="url"
+                required
+              />
+            </td>
+            <td>
+              <button type="submit">💾</button>
+            </td>
+          </tr>
+        </tfoot>
+      </table>
+    </form>
 
     <script src="index.js"></script>
   </body>
