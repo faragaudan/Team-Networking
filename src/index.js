@@ -68,3 +68,4 @@ function initEvents() {
 }
 
 initEvents();
+console.warn("start app");
