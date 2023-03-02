@@ -9,6 +9,21 @@ fetch("http://localhost:3000/teams-json", {
     displayTeams(teams);
   });
 
+function createTeamRequest() {
+  return fetch("http://localhost:3000/teams-json/create", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      promotion: document.getElementById("promotion").value,
+      members: document.getElementById("members").value,
+      name: document.getElementById("name").value,
+      url: document.getElementById("url").value
+    })
+  }).then(r => r.json());
+}
+
 function displayTeams(teams) {
   const teamsHTML = teams.map(
     team => `
@@ -28,25 +43,12 @@ function displayTeams(teams) {
 function onSubmit(e) {
   e.preventDefault();
 
-  fetch("http://localhost:3000/teams-json/create", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify({
-      promotion: document.getElementById("promotion").value,
-      members: document.getElementById("members").value,
-      name: document.getElementById("name").value,
-      url: document.getElementById("url").value
-    })
-  })
-    .then(r => r.json())
-    .then(status => {
-      console.warn("status", status.success, status.id);
-      if (status.success) {
-        window.location.reload();
-      }
-    });
+  createTeamRequest().then(status => {
+    console.warn("status", status.success, status.id);
+    if (status.success) {
+      window.location.reload();
+    }
+  });
 }
 
 function deleteTeamsRequest(id) {
@@ -56,7 +58,7 @@ function deleteTeamsRequest(id) {
       "Content-Type": "application/json"
     },
     body: JSON.stringify({ id })
-  });
+  }).then(r => r.json());
 }
 
 function initEvents() {
@@ -66,13 +68,10 @@ function initEvents() {
   document.querySelector("#teams tbody").addEventListener("click", e => {
     if (e.target.matches("a")) {
       const id = e.target.dataset.id;
-      const p = deleteTeamsRequest(id);
-      console.warn("p", p);
-      p.then(r => r.json()).then(status => {
+      deleteTeamsRequest(id).then(status => {
         console.info("s", status);
-        if (status.success) {
-          window.location.reload();
-        }
+
+        window.location.reload();
       });
     }
   });
