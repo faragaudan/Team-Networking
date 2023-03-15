@@ -1,3 +1,70 @@
 table {
   width: 100%;
+  border: solid 5px rgb(61, 59, 59);
+  border-spacing: 3px;
+}
+
+img {
+  border-radius: 50%;
+  border: 5px solid gray;
+  margin: 5px;
+}
+
+header {
+  display: flex;
+  background-color: rgb(207, 190, 190);
+  margin-bottom: 10px;
+}
+
+h1 {
+  padding-top: 38px;
+  margin-left: 10px;
+  color: rgb(53, 50, 50);
+  font-style: italic;
+}
+
+body {
+  background-color: rgb(228, 224, 224);
+  height: 100%;
+}
+
+th {
+  background-color: rgb(98, 97, 97);
+  color: aliceblue;
+  padding: 5px;
+}
+
+td {
+  padding-left: 10px;
+}
+
+a.remove-btn:hover {
+  color: rgb(255, 0, 0);
+}
+
+a.edit-btn:hover {
+  color: rgb(16, 232, 16);
+}
+
+footer {
+  text-align: center;
+  background-color: rgb(207, 190, 190);
+  padding: 5px;
+  color: rgb(53, 50, 50);
+}
+
+footer a,
+footer a:visited {
+  color: #f5f5f5;
+  vertical-align: top;
+  line-height: 20px;
+  display: inline-block;
+  padding: 2px 5px;
+  border-radius: 0.2em;
+  transition: 0, 5s;
+}
+
+footer a:hover {
+  text-decoration: none;
+  background-color: rgb(98, 97, 97);
 }
