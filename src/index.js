@@ -44,6 +44,13 @@ function readTeam() {
   };
 }
 
+function write(team) {
+  document.getElementById("promotion").value = team.promotion;
+  document.getElementById("members").value = team.members;
+  document.getElementById("name").value = team.name;
+  document.getElementById("url").value = team.url;
+}
+
 function getTeamsHTML(teams) {
   return teams
     .map(
@@ -52,7 +59,9 @@ function getTeamsHTML(teams) {
         <td>${team.promotion}</td>
         <td>${team.members}</td>
         <td>${team.name}</td>
-        <td>${team.url}</td>
+        <td>
+        <a href="${team.url}" target ="_blank">${team.url.replace("https://github.com/", " ")}</a>
+        </td>
         <td>
           <a data-id="${team.id}" class="remove-btn">✖</a>
           <a data-id="${team.id}" class="edit-btn">&#9998;</a>
@@ -79,7 +88,11 @@ function onSubmit(e) {
   } else {
     createTeamRequest(team).then(status => {
       if (status.success) {
-        window.location.reload();
+        // ...
+        allTeams.push(team);
+        // allTeams = [...allTeams, team]
+        displayTeams(allTeams);
+        e.target.reset();
       }
     });
   }
