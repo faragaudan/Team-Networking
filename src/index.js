@@ -89,6 +89,7 @@ function onSubmit(e) {
     createTeamRequest(team).then(status => {
       if (status.success) {
         // ...
+        team.id = status.id;
         allTeams.push(team);
         // allTeams = [...allTeams, team]
         displayTeams(allTeams);
