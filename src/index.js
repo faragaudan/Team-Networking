@@ -66,7 +66,13 @@ function getTeamsHTML(teams) {
     .join("");
 }
 
+let oldDisplayTeams;
 function displayTeams(teams) {
+  if (oldDisplayTeams === teams) {
+    console.warn("same teams to display");
+    return;
+  }
+  oldDisplayTeams = teams;
   document.querySelector("#teams tbody").innerHTML = getTeamsHTML(teams);
 }
 
@@ -87,7 +93,16 @@ function onSubmit(e) {
     updateTeamRequest(team).then(status => {
       if (status.success) {
         //
-        loadTeams();
+        //loadTeams();
+        allTeams = [...allTeams];
+        const editedTeam = allTeams.find(team => team.id === editId);
+        console.warn("editedTeam", JSON.stringify(editedTeam), team);
+        editedTeam.promotion = team.promotion;
+        editedTeam.url = team.url;
+        editedTeam.members = team.members;
+        editedTeam.name = team.name;
+
+        displayTeams(allTeams);
         e.target.reset();
       }
     });
@@ -96,8 +111,8 @@ function onSubmit(e) {
       if (status.success) {
         // ...
         team.id = status.id;
-        allTeams.push(team);
-        // allTeams = [...allTeams, team]
+        // allTeams.push(team);
+        allTeams = [...allTeams, team];
         displayTeams(allTeams);
         e.target.reset();
       }
