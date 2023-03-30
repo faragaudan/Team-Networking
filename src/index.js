@@ -1,3 +1,6 @@
+import { sleep } from "./utilities";
+const utilities = require("./utilities");
+
 let allTeams = [];
 let editId;
 
@@ -156,6 +159,7 @@ function initEvents() {
       deleteTeamsRequest(id).then(status => {
         if (status.success) {
           loadTeams();
+          //TODO don`t load all teams
         }
       });
     } else if (e.target.matches("a.edit-btn")) {
@@ -167,3 +171,15 @@ function initEvents() {
 
 loadTeams();
 initEvents();
+
+console.info("sleep");
+sleep(2000).then(r => {
+  console.info("done1", r);
+});
+console.warn("after sleep");
+
+(async () => {
+  console.warn("sleep2");
+  var r2 = await sleep(5000);
+  console.warn("done2", r2);
+})();
