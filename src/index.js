@@ -1,6 +1,5 @@
 import { createTeamRequest, loadTeamsRequest, updateTeamRequest, deleteTeamsRequest } from "./request";
-import { sleep } from "./utilities";
-const utilities = require("./utilities");
+import { $, sleep } from "./utilities";
 
 let allTeams = [];
 let editId;
@@ -102,12 +101,25 @@ function prepareEdit(id) {
   document.getElementById("url").value = team.url;
 }
 
+function searchTeams(search) {
+  return allTeams.filter(team => {
+    return team.promotion.indexOf(search) >= 0;
+  });
+}
+
 function initEvents() {
   const form = document.getElementById("editForm");
   form.addEventListener("submit", onSubmit);
   form.addEventListener("reset", () => {
     editId = undefined;
   });
+
+  $("#search").addEventListener("input", e => {
+    const teams = searchTeams(e.target.value);
+    displayTeams(teams);
+    console.info(search);
+  });
+  $;
 
   document.querySelector("#teams tbody").addEventListener("click", async e => {
     if (e.target.matches("a.remove-btn")) {
