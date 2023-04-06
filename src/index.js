@@ -1,37 +1,9 @@
+import { createTeamRequest, loadTeamsRequest, updateTeamRequest, deleteTeamsRequest } from "./request";
 import { sleep } from "./utilities";
 const utilities = require("./utilities");
 
 let allTeams = [];
 let editId;
-
-function loadTeamsRequest() {
-  return fetch("http://localhost:3000/teams-json", {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json"
-    }
-  }).then(r => r.json());
-}
-
-function createTeamRequest(team) {
-  return fetch("http://localhost:3000/teams-json/create", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify(readTeam())
-  }).then(r => r.json());
-}
-
-function updateTeamRequest(team) {
-  return fetch("http://localhost:3000/teams-json/update", {
-    method: "PUT",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify(readTeam())
-  }).then(r => r.json());
-}
 
 function readTeam() {
   return {
@@ -88,7 +60,7 @@ function loadTeams() {
   });
 }
 
-function onSubmit(e) {
+async function onSubmit(e) {
   e.preventDefault();
   const team = readTeam();
   if (editId) {
@@ -113,27 +85,16 @@ function onSubmit(e) {
       }
     });
   } else {
-    createTeamRequest(team).then(status => {
-      if (status.success) {
-        // ...
-        team.id = status.id;
-        // allTeams.push(team);
-        allTeams = [...allTeams, team];
-        displayTeams(allTeams);
-        e.target.reset();
-      }
-    });
+    const status = await createTeamRequest(team);
+    if (status.success) {
+      // ...
+      team.id = status.id;
+      // allTeams.push(team);
+      allTeams = [...allTeams, team];
+      displayTeams(allTeams);
+      e.target.reset();
+    }
   }
-}
-
-function deleteTeamsRequest(id) {
-  return fetch("http://localhost:3000/teams-json/delete", {
-    method: "DELETE",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify({ id })
-  }).then(r => r.json());
 }
 
 function prepareEdit(id) {
